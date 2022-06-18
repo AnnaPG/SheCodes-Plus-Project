@@ -1,0 +1,100 @@
+body {
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  max-width: 600px;
+  text-align: center;
+  font-family: "Roboto Slab", serif;
+}
+input {
+  border: 2px solid #fdc57b;
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: block;
+  width: 100%;
+}
+
+input:focus {
+  border: 2px solid #7fa99b;
+}
+
+button {
+  background-color: #7fa99b;
+  color: #fbf2d5;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #fdc57b;
+  color: #394a51;
+}
+
+h2 {
+  color: #394a51;
+  font-weight: 700;
+}
+
+img {
+  padding: 20px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.title {
+  color: #fdc57b;
+  font-size: 25px;
+  position: relative;
+  margin: 0 auto;
+  top: 180px;
+  right: 110px;
+}
+.search-box {
+  margin-top: 30px;
+}
+
+.main-box {
+  display: block;
+  margin: 0 auto;
+  border: 4px solid #7fa99b;
+  border-radius: 5px;
+  padding: 50px;
+  margin-top: 10px;
+}
+
+.days-details {
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.main-icon {
+  color: #7fa99b;
+  font-size: 40px;
+}
+.weather-icon {
+  color: #fdc57b;
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.details-icon {
+  color: #7fa99b;
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.link-units {
+  text-decoration: none;
+  color: #394a51;
+  cursor: pointer;
+}
+
+.link-units:hover {
+  color: #7fa99b;
+}
