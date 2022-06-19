@@ -98,3 +98,9 @@ ul {
 .link-units:hover {
   color: #7fa99b;
 }
+
+.git-hub-link {
+  font-size: 12px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 50px;
+}
