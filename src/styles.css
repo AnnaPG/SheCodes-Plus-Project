@@ -60,15 +60,33 @@ ul {
   margin-top: 10px;
 }
 
+.weather-temperature {
+  justify-content: center;
+  font-size: 50px;
+  font-weight: 600;
+}
+.weather-temperature .main-icon {
+  color: #7fa99b;
+  font-size: 55px;
+}
+
+.weather-temperature .units {
+  font-size: 17px;
+  margin-top: 15px;
+  margin-left: -15px;
+}
+
+.weather-temperature .link-units {
+  text-decoration: none;
+  color: #394a51;
+  cursor: pointer;
+}
+
 .days-details {
   margin-top: 30px;
   font-size: 20px;
 }
 
-.main-icon {
-  color: #7fa99b;
-  font-size: 40px;
-}
 .weather-icon {
   color: #fdc57b;
   font-size: 30px;
@@ -79,12 +97,6 @@ ul {
   color: #7fa99b;
   font-size: 20px;
   margin: 10px 0;
-}
-
-.link-units {
-  text-decoration: none;
-  color: #394a51;
-  cursor: pointer;
 }
 
 .link-units:hover {
