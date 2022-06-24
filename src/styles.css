@@ -39,24 +39,16 @@ h2 {
   font-weight: 700;
 }
 
-img {
-  padding: 20px;
-}
-
 ul {
   list-style-type: none;
 }
 
 .title {
   color: #fdc57b;
-  font-size: 25px;
+  font-size: 20px;
   position: relative;
-  margin: 0 auto;
-  top: 180px;
-  right: 110px;
-}
-.search-box {
-  margin-top: 30px;
+  bottom: 90px;
+  right: 90px;
 }
 
 .main-box {
