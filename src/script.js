@@ -49,33 +49,42 @@ function getCurrentDate(timestamp) {
   let currentHour = String(currentDate.getHours()).padStart(2, "0");
   let currentMinutes = String(currentDate.getMinutes()).padStart(2, "0");
 
-  return `<i class="fa-solid fa-calendar-day details-icon"></i> ${currentWeekDay} ${currentDay}${currentSufixDay} ${currentMonth} ${currentHour}:${currentMinutes}`;
+  return `${currentWeekDay} ${currentDay}${currentSufixDay} ${currentMonth} ${currentHour}:${currentMinutes}`;
+}
+
+// Function to format the day from the forecast API
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fry", "Sat"];
+
+  return days[day];
 }
 
 // Function to set our icons using the API code
 function getMainIcon(code) {
   if (code == "01d") {
-    return `<i class="fa-solid fa-sun main-icon"></i>`;
+    return `<i class="fa-solid fa-sun"></i>`;
   } else if (code == "02d") {
-    return `<i class="fa-solid fa-cloud-sun main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-sun"></i>`;
   } else if (code == "03d" || code == "04d" || code == "03n" || code == "04n") {
-    return `<i class="fa-solid fa-cloud main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud"></i>`;
   } else if (code == "09d" || code == "09n") {
-    return `<i class="fa-solid fa-cloud-rain main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-rain"></i>`;
   } else if (code == "10d") {
-    return `<i class="fa-solid fa-cloud-sun-rain main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-sun-rain"></i>`;
   } else if (code == "11d" || code == "11n") {
-    return `<i class="fa-solid fa-cloud-bolt main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-bolt"></i>`;
   } else if (code == "13d" || code == "13n") {
-    return `<i class="fa-solid fa-snowflake main-icon"></i>`;
+    return `<i class="fa-solid fa-snowflake"></i>`;
   } else if (code == "50d" || code == "50n") {
-    return `<i class="fa-solid fa-smog main-icon"></i>`;
+    return `<i class="fa-solid fa-smog"></i>`;
   } else if (code == "01n") {
-    return `<i class="fa-solid fa-moon main-icon"></i>`;
+    return `<i class="fa-solid fa-moon"></i>`;
   } else if (code == "02n") {
-    return `<i class="fa-solid fa-cloud-moon main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-moon"></i>`;
   } else if (code == "10n") {
-    return `<i class="fa-solid fa-cloud-moon-rain main-icon"></i>`;
+    return `<i class="fa-solid fa-cloud-moon-rain"></i>`;
   } else {
     return alert("Icon code not found");
   }
@@ -92,23 +101,27 @@ function getForecast(coordinates) {
 
 // Function to diplay the forecast
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Mon", "Tues", "Wed", "Thu", "Fry"];
-
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col">
-      <div class="days-details-date">${day}</div>
-      <i class="fa-solid fa-cloud weather-icon"></i>
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col">
+      <div class="days-details-date">${formatDay(forecastDay.dt)}</div>
+      ${getMainIcon(forecastDay.weather[0].icon)}
       <div class="days-details-temp">
-        <span class="days-details-temp-max">25º</span>
-        <span class="days-details-temp-min">18º</span>
+        <span class="days-details-temp-max">${Math.round(
+          forecastDay.temp.max
+        )}º</span>
+        <span class="days-details-temp-min">${Math.round(
+          forecastDay.temp.min
+        )}º</span>
       </div>
     </div>`;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -143,9 +156,9 @@ function updateWeather(response) {
     response.data.weather[0].main;
 
   // Update weather-icon
-  document.querySelector("#main-icon").innerHTML = getMainIcon(
-    response.data.weather[0].icon
-  );
+  weatherIcon = document.querySelector("#main-icon");
+  weatherIcon.innerHTML = getMainIcon(response.data.weather[0].icon);
+  weatherIcon.classList.add("main-icon");
 
   // Update date-time
   document.querySelector("#date-time").innerHTML = getCurrentDate(
