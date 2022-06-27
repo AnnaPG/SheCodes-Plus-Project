@@ -90,7 +90,16 @@ ul {
 
 .days-details {
   margin-top: 30px;
-  font-size: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.days-details-temp {
+  font-size: 13px;
+}
+
+.days-details-temp-min {
+  opacity: 0.5;
 }
 
 .weather-icon {

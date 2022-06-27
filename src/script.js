@@ -15,6 +15,8 @@ function getSufixDay(dayNumber) {
 function getCurrentDate(timestamp) {
   let currentDate = new Date(timestamp);
 
+  console.log(currentDate);
+
   let days = [
     "Sunday",
     "Monday",
@@ -79,6 +81,30 @@ function getMainIcon(code) {
   }
 }
 
+// Function to diplay the forecast
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Mon", "Tues", "Wed", "Thu", "Fry"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col">
+      <div class="days-details-date">${day}</div>
+      <i class="fa-solid fa-cloud weather-icon"></i>
+      <div class="days-details-temp">
+        <span class="days-details-temp-max">25º</span>
+        <span class="days-details-temp-min">18º</span>
+      </div>
+    </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 // Function to update the temperature
 function updateWeather(response) {
   event.preventDefault();
@@ -115,6 +141,9 @@ function updateWeather(response) {
   document.querySelector("#date-time").innerHTML = getCurrentDate(
     response.data.dt * 1000
   );
+
+  // Update forecast
+  displayForecast();
 }
 
 function searchCity(city) {
