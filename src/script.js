@@ -12,8 +12,8 @@ function getSufixDay(dayNumber) {
 }
 
 // Function to get the current date
-function getCurrentDate() {
-  let currentDate = new Date();
+function getCurrentDate(timestamp) {
+  let currentDate = new Date(timestamp);
 
   let days = [
     "Sunday",
@@ -46,13 +46,38 @@ function getCurrentDate() {
   let currentMonth = months[currentDate.getMonth()];
   let currentHour = String(currentDate.getHours()).padStart(2, "0");
   let currentMinutes = String(currentDate.getMinutes()).padStart(2, "0");
-  console.log(currentMinutes);
 
-  let dateTime = document.querySelector("#date-time");
-  dateTime.innerHTML = `<i class="fa-solid fa-calendar-day details-icon"></i> ${currentWeekDay} ${currentDay}${currentSufixDay} ${currentMonth} ${currentHour}:${currentMinutes}`;
+  return `<i class="fa-solid fa-calendar-day details-icon"></i> ${currentWeekDay} ${currentDay}${currentSufixDay} ${currentMonth} ${currentHour}:${currentMinutes}`;
 }
 
-getCurrentDate();
+// Function to set our icons using the API code
+function getMainIcon(code) {
+  if (code == "01d") {
+    return `<i class="fa-solid fa-sun main-icon"></i>`;
+  } else if (code == "02d") {
+    return `<i class="fa-solid fa-cloud-sun main-icon"></i>`;
+  } else if (code == "03d" || code == "04d" || code == "03n" || code == "04n") {
+    return `<i class="fa-solid fa-cloud main-icon"></i>`;
+  } else if (code == "09d" || code == "09n") {
+    return `<i class="fa-solid fa-cloud-rain main-icon"></i>`;
+  } else if (code == "10d") {
+    return `<i class="fa-solid fa-cloud-sun-rain main-icon"></i>`;
+  } else if (code == "11d" || code == "11n") {
+    return `<i class="fa-solid fa-cloud-bolt main-icon"></i>`;
+  } else if (code == "13d" || code == "13n") {
+    return `<i class="fa-solid fa-snowflake main-icon"></i>`;
+  } else if (code == "50d" || code == "50n") {
+    return `<i class="fa-solid fa-smog main-icon"></i>`;
+  } else if (code == "01n") {
+    return `<i class="fa-solid fa-moon main-icon"></i>`;
+  } else if (code == "02n") {
+    return `<i class="fa-solid fa-cloud-moon main-icon"></i>`;
+  } else if (code == "10n") {
+    return `<i class="fa-solid fa-cloud-moon-rain main-icon"></i>`;
+  } else {
+    return alert("Icon code not found");
+  }
+}
 
 // Function to update the temperature
 function updateWeather(response) {
@@ -81,7 +106,15 @@ function updateWeather(response) {
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
 
-  console.log(response.data);
+  // Update weather-icon
+  document.querySelector("#main-icon").innerHTML = getMainIcon(
+    response.data.weather[0].icon
+  );
+
+  // Update date-time
+  document.querySelector("#date-time").innerHTML = getCurrentDate(
+    response.data.dt * 1000
+  );
 }
 
 function searchCity(city) {
