@@ -83,6 +83,11 @@ ul {
   cursor: pointer;
 }
 
+.weather-temperature .active:hover {
+  cursor: default;
+  color: #394a51;
+}
+
 .days-details {
   margin-top: 30px;
   font-size: 20px;

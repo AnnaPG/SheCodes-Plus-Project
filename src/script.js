@@ -84,10 +84,10 @@ function updateWeather(response) {
   event.preventDefault();
   // Update city value
   document.querySelector("#city").innerHTML = response.data.name;
+
+  celsiusTemperature = response.data.main.temp;
   // Update temperature value
-  document.querySelector("#temp").innerHTML = Math.round(
-    response.data.main.temp
-  );
+  document.querySelector("#temp").innerHTML = Math.round(celsiusTemperature);
   // Update humidity value
   document.querySelector("#humidity").innerHTML = response.data.main.humidity;
   // Update wind value
@@ -139,22 +139,23 @@ searchButton.addEventListener("click", handleSubmit);
 
 // Function to change units in temperature
 function getCelciusTemp(event) {
+  farenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
   event.preventDefault();
-  temp = 66;
-  celsiusTemp = Math.round(((temp - 32) * 5) / 9);
-  console.log(celsiusTemp);
   let currentTemp = document.querySelector("#temp");
-  currentTemp.innerHTML = `${celsiusTemp}`;
+  currentTemp.innerHTML = Math.round(celsiusTemperature);
 }
 
 function getFarenheitTemp(event) {
   event.preventDefault();
-  temp = 21;
-  farenheitTemp = Math.round(temp * 1.8 + 32);
-  console.log(farenheitTemp);
+  celsiusLink.classList.remove("active");
+  farenheitLink.classList.add("active");
+  farenheitTemp = Math.round(celsiusTemperature * 1.8 + 32);
   let currentTemp = document.querySelector("#temp");
-  currentTemp.innerHTML = `${farenheitTemp}`;
+  currentTemp.innerHTML = farenheitTemp;
 }
+
+let celsiusTemperature = null;
 
 let celsiusLink = document.querySelector("#link-celsius");
 celsiusLink.addEventListener("click", getCelciusTemp);
