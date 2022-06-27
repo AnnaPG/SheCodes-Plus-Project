@@ -81,8 +81,18 @@ function getMainIcon(code) {
   }
 }
 
+// Function to get the data for the forecast from the API
+function getForecast(coordinates) {
+  let units = "metric";
+  let apiKey = "6f088eede7364dfafcf3d7dd6015c1e1";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=${units}`;
+  console.log(apiUrl);
+  axios.get(apiUrl).then(displayForecast);
+}
+
 // Function to diplay the forecast
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Mon", "Tues", "Wed", "Thu", "Fry"];
@@ -142,8 +152,8 @@ function updateWeather(response) {
     response.data.dt * 1000
   );
 
-  // Update forecast
-  displayForecast();
+  // get the forecast with the API data
+  getForecast(response.data.coord);
 }
 
 function searchCity(city) {
